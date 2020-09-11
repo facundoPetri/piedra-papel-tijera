@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Iniciar la puntuacion de la computadora y del jugador a 0
+        let playerScore = 0
+        let computerScore = 0
+
+        function computerPlay() {
+            // Computadora elige randome entre piedra papel o tijera
+            let randome = Math.floor(Math.random() * 3)
+            // Crear una variable para la eleccion (piedra, papel o tijera)
+            let election = null
+            // Comprobar que numero toco y asignar
+            if (randome == 0) {
+                election = "piedra"
+            } else if (randome == 1){
+                election = "papel"
+            } else {
+                election = "tijera"
+            }
+            // Devolver la eleccion de la computadora
+            return election
+        }
+
+        function playRound(playerSelection, computerSelection) {
+            if (playerSelection == "piedra"){
+                if (computerSelection == "piedra") {
+                    return "Empate"
+                } else if (computerSelection == "papel") {
+                    computerScore++
+                    return `Perdiste! ${playerSelection} pierde contra ${computerSelection}`
+                } else {
+                    playerScore++
+                    return `Ganaste! ${playerSelection} le gana a ${computerSelection}`
+                }
+            } else if(playerSelection == "papel") {
+                if (computerSelection == "piedra") {
+                    return `Ganaste! ${playerSelection} le gana a ${computerSelection}`
+                } else if (computerSelection == "papel") {
+                    playerScore++
+                    return "Empate"
+                } else {
+                    computerScore++
+                    return `Perdiste! ${playerSelection} pierde contra ${computerSelection}`
+                }
+            } else if (playerSelection == "tijera") {
+                if (computerSelection == "piedra") {
+                    computerScore++
+                    return `Perdiste! ${playerSelection} pierde contra ${computerSelection}`
+                } else if (computerSelection == "papel") {
+                    playerScore++
+                    return `Ganaste! ${playerSelection} le gana a ${computerSelection}`
+                } else {
+                    return "Empate"
+                }
+            } else {
+                return "Error tenes que elegir entre piedra papel o tijera"
+            }
+        }
+        function game() {
+            while (playerScore < 5 || computerScore < 5) {
+                const playerSelection = prompt("Piedra, Papel o Tijera (ronda " + (playerScore + computerScore) + ")").toLowerCase()
+                const computerSelection = computerPlay()
+                console.log(playRound(playerSelection, computerSelection))
+                if (playerScore == 5) {
+                    return console.log("Ganaste la partida")
+                }
+                if (computerScore == 5) {
+                    return console.log("Perdiste la partida")
+                }
+            }
+        }
+        game()
+    </script>
+</body>
+</html>
